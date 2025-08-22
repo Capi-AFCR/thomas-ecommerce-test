@@ -80,9 +80,9 @@ class OrderServiceTest {
         productOrderDTO = new OrderRequestDTO.ProductQuantity();
         productOrderDTO.setProductId(1L);
         productOrderDTO.setQuantity(2);
-        productOrderDTO.setIsRandomOrder(false);
 
         orderRequestDTO = new OrderRequestDTO();
+        orderRequestDTO.setIsRandomOrder(false);
         orderRequestDTO.setProducts(Arrays.asList(productOrderDTO));
     }
 
@@ -249,7 +249,7 @@ class OrderServiceTest {
     @Test
     void testCreate_RandomOrderInDiscountPeriod() {
         // Arrange
-        productOrderDTO.setIsRandomOrder(true);
+        orderRequestDTO.setIsRandomOrder(true);
         orderRequestDTO.setProducts(Arrays.asList(productOrderDTO));
 
         when(userService.findByUsername("testuser")).thenReturn(user);
@@ -282,7 +282,7 @@ class OrderServiceTest {
     @Test
     void testCreate_FrequentCustomerRandomOrder() {
         // Arrange
-        productOrderDTO.setIsRandomOrder(true);
+        orderRequestDTO.setIsRandomOrder(true);
         orderRequestDTO.setProducts(Arrays.asList(productOrderDTO));
 
         when(userService.findByUsername("testuser")).thenReturn(user);
