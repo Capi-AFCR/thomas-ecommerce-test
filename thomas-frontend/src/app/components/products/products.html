@@ -1,0 +1,99 @@
+<mat-card class="products-card">
+  <mat-card-title>Productos</mat-card-title>
+  <mat-card-content>
+    <!-- Search Form -->
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Precio Mínimo</mat-label>
+        <input matInput type="number" formControlName="minPrice" min="0" />
+        <mat-error *ngIf="searchForm.get('minPrice')?.hasError('min')">
+          El precio mínimo debe ser mayor o igual a 0
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Precio Máximo</mat-label>
+        <input matInput type="number" formControlName="maxPrice" min="0" />
+        <mat-error *ngIf="searchForm.get('maxPrice')?.hasError('min')">
+          El precio máximo debe ser mayor o igual a 0
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Buscar</button>
+    </form>
+
+    <!-- New Product Button -->
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openNewProductDialog()"
+      *ngIf="authService.isAdmin()"
+      class="new-product-button"
+    >
+      Nuevo Producto
+    </button>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="loading-container">
+      <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+      <span>Cargando productos...</span>
+    </div>
+
+    <!-- Error Message -->
+    <mat-error *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </mat-error>
+
+    <!-- No Products Message -->
+    <div *ngIf="!isLoading && !errorMessage && products.length === 0" class="no-data-message">
+      No se encontraron productos.
+    </div>
+
+    <!-- Products Table -->
+    <div class="table-container" *ngIf="!isLoading && !errorMessage && products.length > 0">
+      <table mat-table [dataSource]="products">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let product">{{ product.id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Descripción</th>
+          <td mat-cell *matCellDef="let product">{{ product.description }}</td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>Precio</th>
+          <td mat-cell *matCellDef="let product">{{ product.price | currency : 'USD' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let product" class="action-buttons">
+            <button
+              mat-button
+              color="primary"
+              (click)="goToDetail(product.id)"
+              *ngIf="authService.isAdmin()"
+            >
+              Ver
+            </button>
+            <button
+              mat-button
+              color="warn"
+              (click)="deleteProduct(product.id)"
+              *ngIf="authService.isAdmin()"
+            >
+              Eliminar
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

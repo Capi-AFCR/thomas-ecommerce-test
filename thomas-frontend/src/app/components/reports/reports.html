@@ -1,0 +1,58 @@
+<mat-card>
+  <mat-card-title>Reportes</mat-card-title>
+  <mat-card-content>
+    <h3>Productos Activos</h3>
+    <table mat-table [dataSource]="activeProducts">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let product">{{ product.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Precio</th>
+        <td mat-cell *matCellDef="let product">{{ product.price }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsProducts"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsProducts"></tr>
+    </table>
+
+    <h3>Top 5 Productos Vendidos</h3>
+    <table mat-table [dataSource]="topSold">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let item">{{ item[0].id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let item">{{ item[0].name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="sales">
+        <th mat-header-cell *matHeaderCellDef>Ventas</th>
+        <td mat-cell *matCellDef="let item">{{ item[1] }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsTopSold"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsTopSold"></tr>
+    </table>
+
+    <h3>Top 5 Clientes Frecuentes</h3>
+    <table mat-table [dataSource]="topClients">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let item">{{ item[0].id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Usuario</th>
+        <td mat-cell *matCellDef="let item">{{ item[0].username }}</td>
+      </ng-container>
+      <ng-container matColumnDef="orders">
+        <th mat-header-cell *matHeaderCellDef>Órdenes</th>
+        <td mat-cell *matCellDef="let item">{{ item[1] }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsTopClients"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsTopClients"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

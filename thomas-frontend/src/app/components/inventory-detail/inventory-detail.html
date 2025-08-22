@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-title>Detalles del Inventario</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()">
+      <div>
+        <p><strong>Producto:</strong> {{ inventory?.product.name }}</p>
+      </div>
+      <mat-form-field>
+        <mat-label>Stock</mat-label>
+        <input matInput type="number" formControlName="stock" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Actualizar</button>
+    </form>
+  </mat-card-content>
+</mat-card>

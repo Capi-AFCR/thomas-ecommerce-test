@@ -1,0 +1,30 @@
+<mat-toolbar color="primary" class="toolbar">
+  <span class="app-title">E-Commerce</span>
+  <div class="nav-buttons" *ngIf="authService.isAuthenticated()">
+    <button mat-button routerLink="/products" aria-label="Productos">Productos</button>
+    <button mat-button routerLink="/orders" aria-label="Órdenes">Órdenes</button>
+    <button
+      mat-button
+      routerLink="/inventory"
+      *ngIf="authService.isAdmin()"
+      aria-label="Inventario"
+    >
+      Inventario
+    </button>
+    <button mat-button routerLink="/users" *ngIf="authService.isAdmin()" aria-label="Usuarios">
+      Usuarios
+    </button>
+    <button mat-button routerLink="/reports" *ngIf="authService.isAdmin()" aria-label="Reportes">
+      Reportes
+    </button>
+    <button
+      mat-icon-button
+      (click)="authService.logout()"
+      aria-label="Cerrar Sesión"
+      class="logout-button"
+    >
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>

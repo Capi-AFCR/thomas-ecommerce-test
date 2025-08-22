@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Nuevo Producto</h2>
+<mat-dialog-content>
+  <form (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="product.name" name="name" required />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Descripción</mat-label>
+      <input matInput [(ngModel)]="product.description" name="description" required />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Precio</mat-label>
+      <input matInput type="number" [(ngModel)]="product.price" name="price" required min="0" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Stock Inicial</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="product.initialStock"
+        name="initialStock"
+        required
+        min="0"
+      />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Guardar</button>
+</mat-dialog-actions>
