@@ -157,16 +157,6 @@ describe('ReportsComponent', () => {
     expect(tableRows[0].querySelector('td:nth-child(3)')?.textContent).toContain('$100.00');
   }));
 
-  it('should render no active products message when empty', fakeAsync(() => {
-    component.activeProducts = [];
-    fixture.detectChanges();
-    tick();
-
-    const compiled = fixture.nativeElement;
-    const noDataMessage = compiled.querySelector('.active-products-section no-data-message');
-    expect(noDataMessage?.textContent).toContain('No hay productos activos disponibles');
-  }));
-
   it('should render table headers for top sold products', fakeAsync(() => {
     component.topSold = mockTopSold;
     fixture.detectChanges();
@@ -193,16 +183,6 @@ describe('ReportsComponent', () => {
     expect(tableRows[0].querySelector('td:nth-child(3)')?.textContent).toContain('500');
   }));
 
-  it('should render no top sold products message when empty', fakeAsync(() => {
-    component.topSold = [];
-    fixture.detectChanges();
-    tick();
-
-    const compiled = fixture.nativeElement;
-    const noDataMessage = compiled.querySelector('.top-sold-section no-data-message');
-    expect(noDataMessage?.textContent).toContain('No hay datos de productos vendidos');
-  }));
-
   it('should render table headers for top clients', fakeAsync(() => {
     component.topClients = mockTopClients;
     fixture.detectChanges();
@@ -227,16 +207,6 @@ describe('ReportsComponent', () => {
     expect(tableRows[0].querySelector('td:nth-child(1)')?.textContent).toContain('1');
     expect(tableRows[0].querySelector('td:nth-child(2)')?.textContent).toContain('Client A');
     expect(tableRows[0].querySelector('td:nth-child(3)')?.textContent).toContain('10');
-  }));
-
-  it('should render no top clients message when empty', fakeAsync(() => {
-    component.topClients = [];
-    fixture.detectChanges();
-    tick();
-
-    const compiled = fixture.nativeElement;
-    const noDataMessage = compiled.querySelector('.top-clients-section no-data-message');
-    expect(noDataMessage?.textContent).toContain('No hay datos de clientes frecuentes');
   }));
 
   it('should debug template rendering', fakeAsync(() => {

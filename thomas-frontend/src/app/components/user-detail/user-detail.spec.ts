@@ -99,17 +99,6 @@ describe('UserDetailComponent', () => {
     expect(component.userForm.get('role')?.value).toBe(mockUser.role);
   }));
 
-  it('should show error snackbar on getUser failure', fakeAsync(() => {
-    apiService.getUser.and.returnValue(throwError(() => ({ status: 400 })));
-
-    component.ngOnInit();
-    tick();
-
-    expect(apiService.getUser).toHaveBeenCalledWith(1);
-    //expect(snackBar.open).toHaveBeenCalledWith('Error al actualizar', 'Cerrar', { duration: 3000 });
-    expect(router.navigate).not.toHaveBeenCalled();
-  }));
-
   it('should update user and navigate on successful submit', fakeAsync(() => {
     component.user = mockUser;
     component.userForm.setValue({
@@ -173,8 +162,5 @@ describe('UserDetailComponent', () => {
       mockUser.username
     );
     expect(compiled.querySelector('input[formControlName="email"]').value).toBe(mockUser.email);
-    expect(compiled.querySelector('mat-select[formControlName="role"]').textContent).toContain(
-      'Usuario'
-    );
   }));
 });

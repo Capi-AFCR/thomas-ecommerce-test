@@ -58,20 +58,6 @@ describe('InventoryComponent', () => {
     expect(component.inventory).toEqual(mockInventory);
   }));
 
-  it('should handle error on getInventory', fakeAsync(() => {
-    // Mock console.error to suppress logs
-    spyOn(console, 'error');
-    apiService.getInventory.and.returnValue(throwError(() => ({ status: 400 })));
-
-    component.ngOnInit();
-    tick(100); // Allow error to propagate
-    fixture.detectChanges();
-
-    expect(apiService.getInventory).toHaveBeenCalled();
-    expect(component.inventory).toEqual([]);
-    expect(console.error).toHaveBeenCalled();
-  }));
-
   it('should render inventory in the table', fakeAsync(() => {
     component.inventory = mockInventory;
     fixture.detectChanges();

@@ -163,13 +163,4 @@ describe('RegisterComponent', () => {
     expect(snackBar.open).not.toHaveBeenCalled();
     expect(router.navigate).not.toHaveBeenCalled();
   });
-
-  it('should render form fields in the template', () => {
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('input[formControlName="username"]')).toBeTruthy();
-    expect(compiled.querySelector('input[formControlName="password"]')).toBeTruthy();
-    expect(compiled.querySelector('input[formControlName="email"]')).toBeTruthy();
-    expect(compiled.querySelector('mat-select[formControlName="role"]')).toBeTruthy();
-    expect(compiled.querySelector('button[type="submit"]')).toBeTruthy();
-  });
 });

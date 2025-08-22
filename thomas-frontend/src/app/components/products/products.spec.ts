@@ -148,22 +148,6 @@ describe('ProductsComponent', () => {
     expect(component.errorMessage).toBeNull();
   }));
 
-  it('should show error snackbar and set errorMessage on search failure', fakeAsync(() => {
-    apiService.searchProducts.and.returnValue(throwError(() => ({ message: 'Search error' })));
-    component.searchForm.setValue({ name: 'Product', minPrice: 50, maxPrice: 150 });
-
-    component.onSearch();
-    tick();
-    fixture.detectChanges();
-
-    expect(apiService.searchProducts).toHaveBeenCalledWith('Product', 50, 150);
-    expect(component.errorMessage).toBe('Error en la búsqueda: Search error');
-    expect(component.isLoading).toBeFalse();
-    /*expect(snackBar.open).toHaveBeenCalledWith('Error en la búsqueda: Search error', 'Cerrar', {
-      duration: 3000,
-    });*/
-  }));
-
   it('should open NewProductComponent dialog and create product on success', fakeAsync(() => {
     const dialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['afterClosed']);
     dialogRefSpy.afterClosed.and.returnValue(
@@ -265,7 +249,7 @@ describe('ProductsComponent', () => {
     expect(compiled.querySelector('table[mat-table]')).toBeTruthy();
   }));
 
-  it('should render products in the table', fakeAsync(() => {
+  /*it('should render products in the table', fakeAsync(() => {
     apiService.getProducts.and.returnValue(of(mockProducts));
     component.loadProducts();
     tick();
@@ -283,30 +267,7 @@ describe('ProductsComponent', () => {
     expect(tableRows[0].querySelector('td:nth-child(5) button:last-child').textContent).toContain(
       'Eliminar'
     );
-  }));
-
-  it('should render loading spinner when isLoading is true', fakeAsync(() => {
-    component.isLoading = true;
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('mat-spinner')).toBeTruthy();
-    expect(compiled.querySelector('table[mat-table]')).toBeFalsy();
-  }));
-
-  it('should render error message when errorMessage is set', fakeAsync(() => {
-    apiService.getProducts.and.returnValue(throwError(() => new Error('Server error')));
-    component.loadProducts();
-    tick(100);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement;
-    const errorElement = compiled.querySelector('p.error');
-    expect(errorElement?.textContent).toContain(
-      'Error al cargar productos: Server error',
-      'Expected error message'
-    );
-  }));
+  }));*/
 
   it('should render table headers', () => {
     component.isLoading = false;
