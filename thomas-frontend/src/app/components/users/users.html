@@ -4,39 +4,41 @@
     <div class="button-container">
       <button mat-raised-button color="primary" (click)="openNewUserDialog()">Nuevo Usuario</button>
     </div>
-    <div class="table-container">
-      <table mat-table [dataSource]="users">
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>ID</th>
-          <td mat-cell *matCellDef="let user">{{ user.id }}</td>
-        </ng-container>
-        <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef>Nombre de Usuario</th>
-          <td mat-cell *matCellDef="let user">{{ user.username }}</td>
-        </ng-container>
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef>Email</th>
-          <td mat-cell *matCellDef="let user">{{ user.email }}</td>
-        </ng-container>
-        <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef>Rol</th>
-          <td mat-cell *matCellDef="let user">{{ user.role }}</td>
-        </ng-container>
-        <ng-container matColumnDef="active">
-          <th mat-header-cell *matHeaderCellDef>Activo</th>
-          <td mat-cell *matCellDef="let user">{{ user.active ? 'Sí' : 'No' }}</td>
-        </ng-container>
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td mat-cell *matCellDef="let user" class="action-buttons">
-            <button mat-button color="primary" (click)="goToDetail(user.id)">Ver</button>
-            <button mat-button color="warn" (click)="deactivateUser(user.id)">Desactivar</button>
-            <button mat-button color="warn" (click)="deleteUsuario(user.id)">Eliminar</button>
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
+    <div class="scrollable-content">
+      <div class="table-container">
+        <table mat-table [dataSource]="users">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+          </ng-container>
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef>Nombre de Usuario</th>
+            <td mat-cell *matCellDef="let user">{{ user.username }}</td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+          </ng-container>
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef>Rol</th>
+            <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+          </ng-container>
+          <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef>Activo</th>
+            <td mat-cell *matCellDef="let user">{{ user.active ? 'Sí' : 'No' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let user" class="action-buttons">
+              <button mat-button color="primary" (click)="goToDetail(user.id)">Ver</button>
+              <button mat-button color="warn" (click)="deactivateUser(user.id)">Desactivar</button>
+              <button mat-button color="warn" (click)="deleteUsuario(user.id)">Eliminar</button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>
