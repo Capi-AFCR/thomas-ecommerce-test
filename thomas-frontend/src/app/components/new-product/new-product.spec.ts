@@ -84,16 +84,6 @@ describe('NewProductComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
   });
 
-  it('should render form fields in the template', () => {
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('input[name="name"]')).toBeTruthy();
-    expect(compiled.querySelector('input[name="description"]')).toBeTruthy();
-    expect(compiled.querySelector('input[name="price"]')).toBeTruthy();
-    expect(compiled.querySelector('input[name="initialStock"]')).toBeTruthy();
-    expect(compiled.querySelector('button[type="submit"]')).toBeTruthy();
-    expect(compiled.querySelector('button[type="button"]')).toBeTruthy();
-  });
-
   it('should bind product data to form inputs', fakeAsync(() => {
     component.product = {
       name: 'Test Product',

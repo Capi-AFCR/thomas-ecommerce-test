@@ -8,15 +8,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AuthService } from '../../services/auth';
 import { NewUserComponent } from './new-user';
 
 describe('NewUserComponent', () => {
   let component: NewUserComponent;
   let fixture: ComponentFixture<NewUserComponent>;
   let dialogRef: jasmine.SpyObj<MatDialogRef<NewUserComponent>>;
+  let authService: jasmine.SpyObj<AuthService>;
 
   beforeEach(async () => {
     const dialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['close']);
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['register']);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -29,14 +33,18 @@ describe('NewUserComponent', () => {
         MatButtonModule,
         MatSelectModule,
         NoopAnimationsModule,
-        NewUserComponent,
+        HttpClientTestingModule, // Add HttpClientTestingModule for AuthService
       ],
-      providers: [{ provide: MatDialogRef, useValue: dialogRefSpy }],
+      providers: [
+        { provide: MatDialogRef, useValue: dialogRefSpy },
+        { provide: AuthService, useValue: authServiceSpy },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NewUserComponent);
     component = fixture.componentInstance;
     dialogRef = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<NewUserComponent>>;
+    authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
     fixture.detectChanges();
   });
 
@@ -89,7 +97,7 @@ describe('NewUserComponent', () => {
     expect(dialogRef.close).not.toHaveBeenCalled();
   });
 
-  it('should close dialog without result on cancel', () => {
+  it('should close dialog on cancel', () => {
     component.onCancel();
     expect(dialogRef.close).toHaveBeenCalled();
   });

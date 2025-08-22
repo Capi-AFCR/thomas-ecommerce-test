@@ -44,14 +44,16 @@ export class OrderDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.loadOrderDetails(+id);
-      this.loadProducts();
-    } else {
-      this.snackBar.open('ID de orden no válido', 'Cerrar', { duration: 3000 });
-      this.router.navigate(['/orders']);
-    }
+    this.route.paramMap.subscribe((params) => {
+      const id = this.route.snapshot.paramMap.get('id');
+      if (id) {
+        this.loadOrderDetails(+id);
+        this.loadProducts();
+      } else {
+        this.snackBar.open('ID de orden no válido', 'Cerrar', { duration: 3000 });
+        this.router.navigate(['/orders']);
+      }
+    });
   }
 
   loadOrderDetails(id: number) {

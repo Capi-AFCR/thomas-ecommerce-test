@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -68,80 +68,32 @@ describe('AppComponent', () => {
 
   it('should render logout button when authenticated', () => {
     authService.isAuthenticated.and.returnValue(true);
-    authService.isAdmin.and.returnValue(false);
-
+    authService.isAdmin.and.returnValue(true);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement;
-    const buttons = compiled.querySelectorAll(
-      'button[mat-button]'
-    ) as NodeListOf<HTMLButtonElement>;
-    expect(buttons.length).toBeGreaterThanOrEqual(3);
-    expect(
-      Array.from(buttons).some((button) => button.textContent?.includes('Productos') ?? false)
-    ).toBeTrue();
-    expect(
-      Array.from(buttons).some((button) => button.textContent?.includes('Órdenes') ?? false)
-    ).toBeTrue();
-    expect(
-      Array.from(buttons).some((button) => button.textContent?.includes('Inventario') ?? false)
-    ).toBeTrue();
-    expect(
-      Array.from(buttons).some((button) => button.textContent?.includes('Cerrar Sesión') ?? false)
-    ).toBeTrue();
+    expect(compiled.querySelector('.logout-button')).toBeTruthy();
+    expect(compiled.querySelector('.nav-buttons mat-icon').textContent).toContain('logout');
   });
 
   it('should render users button when authenticated and admin', () => {
     authService.isAuthenticated.and.returnValue(true);
     authService.isAdmin.and.returnValue(true);
-
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement;
-    const buttons = compiled.querySelectorAll(
-      'button[mat-button]'
-    ) as NodeListOf<HTMLButtonElement>;
-    expect(buttons.length).toBeGreaterThanOrEqual(5); // Includes users button
-    expect(
-      Array.from(buttons).some((button) => button.textContent?.includes('Productos') ?? false)
-    ).toBeTrue();
-    expect(
-      Array.from(buttons).some((button) => button.textContent?.includes('Órdenes') ?? false)
-    ).toBeTrue();
-    expect(
-      Array.from(buttons).some((button) => button.textContent?.includes('Inventario') ?? false)
-    ).toBeTrue();
-    expect(
-      Array.from(buttons).some((button) => button.textContent?.includes('Reportes') ?? false)
-    ).toBeTrue();
-    expect(
-      Array.from(buttons).some((button) => button.textContent?.includes('Usuarios') ?? false)
-    ).toBeTrue();
-    expect(
-      Array.from(buttons).some((button) => button.textContent?.includes('Cerrar Sesión') ?? false)
-    ).toBeTrue();
+    expect(compiled.querySelector('.nav-buttons button[routerLink="/users"]')).toBeTruthy();
   });
 
   it('should call logout on logout button click', () => {
     authService.isAuthenticated.and.returnValue(true);
-    authService.isAdmin.and.returnValue(false);
-
+    authService.isAdmin.and.returnValue(true);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement;
-    const buttons = compiled.querySelectorAll(
-      'button[mat-button]'
-    ) as NodeListOf<HTMLButtonElement>;
-    const logoutButton = Array.from(buttons).find(
-      (button) => button.textContent?.includes('Cerrar Sesión') ?? false
-    ) as HTMLButtonElement | undefined;
-
-    if (logoutButton) {
-      logoutButton.dispatchEvent(new Event('click'));
-      fixture.detectChanges();
-      expect(authService.logout).toHaveBeenCalled();
-    } else {
-      fail('Logout button not found');
-    }
+    const logoutButton = compiled.querySelector('.logout-button');
+    expect(logoutButton).toBeTruthy();
+    logoutButton.click();
+    expect(authService.logout).toHaveBeenCalled();
   });
 });

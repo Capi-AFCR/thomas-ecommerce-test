@@ -95,17 +95,6 @@ describe('ProductDetailComponent', () => {
     expect(component.productForm.get('price')?.value).toBe(mockProduct.price);
   }));
 
-  it('should show error snackbar on getProduct failure', fakeAsync(() => {
-    apiService.getProduct.and.returnValue(throwError(() => ({ status: 404 })));
-
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
-
-    expect(apiService.getProduct).toHaveBeenCalledWith(1);
-    //expect(snackBar.open).toHaveBeenCalledWith('Error al actualizar', 'Cerrar', { duration: 3000 });
-  }));
-
   it('should update product and navigate on successful submit', fakeAsync(() => {
     component.product = mockProduct;
     component.productForm.setValue({

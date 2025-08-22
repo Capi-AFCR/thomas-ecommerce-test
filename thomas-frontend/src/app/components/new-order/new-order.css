@@ -1,24 +1,40 @@
 .new-order-card {
   max-width: 400px;
   margin: 16px;
-  padding: 24px;
+  padding: 0; /* Remove padding from card to control via content and actions */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh; /* Limit modal height to 80% of viewport height */
 }
 
 mat-card-title {
   font-size: 20px;
   font-weight: 500;
   text-align: center;
-  margin-bottom: 16px;
+  margin: 16px;
   color: #333;
+}
+
+.scrollable-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  max-height: calc(80vh - 120px); /* Adjust for title and actions */
+}
+
+mat-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 h3 {
   font-size: 16px;
   font-weight: 500;
-  margin: 16px 0 8px;
+  margin: 0;
   color: #333;
 }
 
@@ -88,7 +104,9 @@ td[mat-cell] {
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  margin-top: 16px;
+  padding: 16px;
+  border-top: 1px solid #e0e0e0;
+  background-color: #ffffff;
 }
 
 button {
@@ -98,11 +116,16 @@ button {
 @media (max-width: 600px) {
   .new-order-card {
     margin: 8px;
-    padding: 16px;
+    max-height: 90vh; /* Allow more height on mobile */
   }
 
   mat-card-title {
     font-size: 18px;
+    margin: 12px;
+  }
+
+  mat-card-content {
+    padding: 12px;
   }
 
   h3 {
@@ -112,6 +135,7 @@ button {
   .dialog-actions {
     flex-direction: column;
     gap: 12px;
+    padding: 12px;
   }
 
   button {

@@ -1,58 +1,82 @@
-<mat-card>
+<mat-card class="reports-card">
   <mat-card-title>Reportes</mat-card-title>
-  <mat-card-content>
-    <h3>Productos Activos</h3>
-    <table mat-table [dataSource]="activeProducts">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let product">{{ product.id }}</td>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Nombre</th>
-        <td mat-cell *matCellDef="let product">{{ product.name }}</td>
-      </ng-container>
-      <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef>Precio</th>
-        <td mat-cell *matCellDef="let product">{{ product.price }}</td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsProducts"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumnsProducts"></tr>
-    </table>
+  <mat-card-content class="reports-content">
+    <!-- Productos Activos -->
+    <section class="report-section active-products-section">
+      <h3>Productos Activos</h3>
+      <div class="table-container" *ngIf="activeProducts.length > 0; else noActiveProducts">
+        <table mat-table [dataSource]="activeProducts" class="active-products-table">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let product">{{ product.id }}</td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+          </ng-container>
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Precio</th>
+            <td mat-cell *matCellDef="let product">{{ product.price | currency : 'USD' }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsProducts"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsProducts"></tr>
+        </table>
+      </div>
+      <ng-template #noActiveProducts>
+        <div class="no-data-message">No hay productos activos disponibles.</div>
+      </ng-template>
+    </section>
 
-    <h3>Top 5 Productos Vendidos</h3>
-    <table mat-table [dataSource]="topSold">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let item">{{ item[0].id }}</td>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Nombre</th>
-        <td mat-cell *matCellDef="let item">{{ item[0].name }}</td>
-      </ng-container>
-      <ng-container matColumnDef="sales">
-        <th mat-header-cell *matHeaderCellDef>Ventas</th>
-        <td mat-cell *matCellDef="let item">{{ item[1] }}</td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsTopSold"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumnsTopSold"></tr>
-    </table>
+    <!-- Top 5 Productos Vendidos -->
+    <section class="report-section top-sold-section">
+      <h3>Top 5 Productos Vendidos</h3>
+      <div class="table-container" *ngIf="topSold.length > 0; else noTopSold">
+        <table mat-table [dataSource]="topSold" class="top-sold-table">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let item">{{ item[0].id }}</td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let item">{{ item[0].name }}</td>
+          </ng-container>
+          <ng-container matColumnDef="sales">
+            <th mat-header-cell *matHeaderCellDef>Ventas</th>
+            <td mat-cell *matCellDef="let item">{{ item[1] }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsTopSold"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsTopSold"></tr>
+        </table>
+      </div>
+      <ng-template #noTopSold>
+        <div class="no-data-message">No hay datos de productos vendidos.</div>
+      </ng-template>
+    </section>
 
-    <h3>Top 5 Clientes Frecuentes</h3>
-    <table mat-table [dataSource]="topClients">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let item">{{ item[0].id }}</td>
-      </ng-container>
-      <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef>Usuario</th>
-        <td mat-cell *matCellDef="let item">{{ item[0].username }}</td>
-      </ng-container>
-      <ng-container matColumnDef="orders">
-        <th mat-header-cell *matHeaderCellDef>Órdenes</th>
-        <td mat-cell *matCellDef="let item">{{ item[1] }}</td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsTopClients"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumnsTopClients"></tr>
-    </table>
+    <!-- Top 5 Clientes Frecuentes -->
+    <section class="report-section top-clients-section">
+      <h3>Top 5 Clientes Frecuentes</h3>
+      <div class="table-container" *ngIf="topClients.length > 0; else noTopClients">
+        <table mat-table [dataSource]="topClients" class="top-clients-table">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let item">{{ item[0].id }}</td>
+          </ng-container>
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef>Usuario</th>
+            <td mat-cell *matCellDef="let item">{{ item[0].username }}</td>
+          </ng-container>
+          <ng-container matColumnDef="orders">
+            <th mat-header-cell *matHeaderCellDef>Órdenes</th>
+            <td mat-cell *matCellDef="let item">{{ item[1] }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsTopClients"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsTopClients"></tr>
+        </table>
+      </div>
+      <ng-template #noTopClients>
+        <div class="no-data-message">No hay datos de clientes frecuentes.</div>
+      </ng-template>
+    </section>
   </mat-card-content>
 </mat-card>
