@@ -132,7 +132,7 @@ Pruebas Unitarias:
 
 
 
-Pruebas completas para componentes frontend (LoginComponent, RegisterComponent, ProductsComponent, UsersComponent, NewOrderComponent, NewUserComponent) y el interceptor JWT.
+Pruebas completas para componentes frontend y el interceptor JWT. Pruebas completas para componentes backend.
 
 Requisitos Previos
 
